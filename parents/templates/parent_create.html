@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Formulário de Cadastro
+{% endblock %}
+
+{% block content %}
+  {% include '_header.html' %}
+
+  <main class="form-page">
+    <article class="form">
+      <h1>Formulário de Cadastro</h1>
+
+      <form method="post" enctype="multipart/form-data" class="form-fields">
+        {% csrf_token %}
+        
+        <div class="form-group">
+          <label for="{{ form.name.id_for_label }}">Nome</label>
+          {{ form.name }}
+          {{ form.name.errors }}
+        </div>
+
+        <div class="form-group">
+          <label for="{{ form.last_name.id_for_label }}">Sobrenome</label>
+          {{ form.last_name }}
+          {{ form.last_name.errors }}
+        </div>
+
+        <div class="form-group">
+          <label for="{{ form.photo.id_for_label }}">Foto</label>
+          {{ form.photo }}
+          {{ form.photo.errors }}
+        </div>
+
+        <div class="form-group">
+          <label for="{{ form.birthday.id_for_label }}">Data de Nascimento</label>
+          {{ form.birthday }}
+          {{ form.birthday.errors }}
+        </div>
+
+        <button type="submit" class="btn-submit">Salvar</button>
+      </form>
+    </article>
+  </main>
+
+  {% include '_footer.html' %}
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+ 
+{% block title %}
+    Home
+{% endblock %}
+
+
+{% block content %}
+
+ {% include '_header.html' %}
+
+  <main class="cards-page">
+    {% for parent in parents %}
+    <article id="profile{{ forloop.counter }}" class="card">
+      <figure>
+        <img src="{{ parent.photo.url }}" alt="{{ parent.name }}" width="600" height="600">
+        <figcaption>{{ parent.name }}</figcaption>
+      </figure>
+      <p>{{ parent.birthday|date:"d/m/Y" }}</p>
+    </article>
+    {% endfor %}
+  </main>
+
+ {% include '_footer.html' %}
+  
+</body>
+</html>
+{% endblock %}

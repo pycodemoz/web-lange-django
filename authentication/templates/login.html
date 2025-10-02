@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+ 
+{% block title %}
+  Login
+{% endblock %}
+
+{% block content %}
+  {% include '_header.html' %}
+
+  <main class="form-users">
+    <section class="form-container">
+      <h1>Fazer Login</h1>
+      
+      <form action="" method="post" class="login-form">
+        {% csrf_token %}
+
+        {% if form.non_field_errors %}
+          <div class="error non-field-error">
+            {{ form.non_field_errors }}
+          </div>
+        {% endif %}
+
+        {% for field in form %}
+          <div class="form-group">
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {{ field }}
+            {% if field.errors %}
+              <div class="error">{{ field.errors }}</div>
+            {% endif %}
+          </div>
+        {% endfor %}
+
+        <button type="submit" class="btn-submit">Entrar</button>
+      </form>
+    </section>
+  </main>
+
+  {% include '_footer.html' %}
+{% endblock %}

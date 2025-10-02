@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+ 
+{% block title %}
+  Cadastro de Usuários
+{% endblock %}
+
+{% block content %}
+  {% include '_header.html' %}
+
+  <main class="form-users">
+    <section class="form-container">
+      <h1>Cadastro de Usuários</h1>
+      <form action="" method="post" class="user-form">
+        {% csrf_token %}
+
+        {% for field in form %}
+          <div class="form-group">
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {{ field }}
+            {% if field.errors %}
+              <div class="error">{{ field.errors }}</div>
+            {% endif %}
+          </div>
+        {% endfor %}
+
+        <button type="submit" class="btn-submit">Salvar</button>
+      </form>
+    </section>
+  </main>
+
+  {% include '_footer.html' %}
+{% endblock %}
