@@ -3,11 +3,20 @@
     <h1>FAMÍLIA LANGE</h1>
 
     <nav>
-          <a href="{% url 'login' %}">Entrar</a>
+      {% if  not user.is_authenticated %}
+        <a href="{% url 'login' %}">Entrar</a>
+      {% endif %}
           
      {% if user.is_authenticated %}
-          <a href="{% url 'users' %}">Usuário</a> 
+
+      {% if perms.users.add_user %}
+          <a href="{% url 'users' %}">Usuário</a>
+      {% endif %}
+
+     {% if perms.parents.add_parent %}
           <a href="{% url 'parent_create' %}">Cadastro</a>
+     {% endif %}
+
           <a href="{% url 'parents' %}">Fotos</a>
           <a href="{% url 'logout' %}">Sair</a>
      {% endif %}

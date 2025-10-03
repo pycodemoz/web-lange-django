@@ -23,7 +23,8 @@
           </a>
           <figcaption>{{ parent.name }} {{parent.last_name}}</figcaption>
         </figure>
-      <p>{{ parent.birthday|date:"d/m/Y" }}</p>
+      <!-- <p>{{ parent.birthday|date:"d/m/Y" }}</p> -->
+      <p>{{ parent.birthday|date:"d \d\e F \d\e Y" }}</p>
     </article>
     {% endfor %}
   </main>

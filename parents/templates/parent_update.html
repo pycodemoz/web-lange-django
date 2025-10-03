@@ -39,7 +39,11 @@
         </div>
 
         <button type="submit" class="btn-submit">Salvar</button>
+        
+        {% if perms.parents.delete_parent %}
         <a href="{% url 'parent_delete' parent.id %}" class="a-delete">Apagar</a>
+      {% endif %}
+
         <a href="{% url 'parents' %}" class="a-back">Voltar</a>
 
 
