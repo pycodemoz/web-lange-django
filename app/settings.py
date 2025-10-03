@@ -164,3 +164,12 @@ print(f"API_SECRET: {'***' if os.environ.get('CLOUDINARY_API_SECRET') else 'NÃO
 print(f"DEFAULT_FILE_STORAGE: {DEFAULT_FILE_STORAGE}")
 print("CLOUDINARY_STORAGE:", CLOUDINARY_STORAGE)
 print("=" * 60)
+
+# No final do settings.py, depois do debug anterior
+try:
+    from django.core.files.storage import default_storage
+    print(f"🎯 Storage class: {default_storage.__class__.__name__}")
+    print(f"🎯 Storage module: {default_storage.__class__.__module__}")
+except Exception as e:
+    print(f"❌ Erro ao verificar storage: {e}")
+print("=" * 60)
