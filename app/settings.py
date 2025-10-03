@@ -155,3 +155,12 @@ CLOUDINARY_STORAGE = {
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
+# DEBUG TEMPORÁRIO - REMOVER DEPOIS
+print("=" * 60)
+print("🔍 CLOUDINARY CONFIG:")
+print(f"CLOUD_NAME: {os.environ.get('CLOUDINARY_CLOUD_NAME', 'NÃO DEFINIDO')}")
+print(f"API_KEY: {os.environ.get('CLOUDINARY_API_KEY', 'NÃO DEFINIDO')}")
+print(f"API_SECRET: {'***' if os.environ.get('CLOUDINARY_API_SECRET') else 'NÃO DEFINIDO'}")
+print(f"DEFAULT_FILE_STORAGE: {DEFAULT_FILE_STORAGE}")
+print("CLOUDINARY_STORAGE:", CLOUDINARY_STORAGE)
+print("=" * 60)
