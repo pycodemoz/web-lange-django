@@ -5,23 +5,20 @@
     Apagar Fotos
 {% endblock %}
 
-
 {% block content %}
+  {% include '_header.html' %}
 
- {% include '_header.html' %}
-
-  <main class="cards-page">
-    <h2>Confirmar Exclusão</h2>
-    <p>Tem certeza que deseja excluir "{{ parent }}"?</p>
+  <main class="cards-page"> 
+    <div class="exclusao"> 
+      <h2>Confirmar Exclusão</h2>
+      <p>Tem certeza que deseja excluir <strong>{{ parent }}</strong>?</p>
       <form method="post">
           {% csrf_token %}
-          <button type="submit">Sim, excluir</button>
+          <button type="submit">Sim</button>
           <a href="{% url 'parents' %}">Cancelar</a>
       </form>
+    </div>
   </main>
 
- {% include '_footer.html' %}
-  
-</body>
-</html>
+  {% include '_footer.html' %}
 {% endblock %}

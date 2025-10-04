@@ -14,7 +14,10 @@
     {% for parent in parents %}
     <article id="profile{{ forloop.counter }}" class="card">
       <figure>
+         {% if perms.parents.change_parent %}
           <a href="{% url 'parent_update' parent.id %}" title="Clique na imagem para atualizar ou deletar">
+         {% endif %}
+
           {% if parent.photo %}
               <img src="{{ parent.photo.url }}" alt="{{ parent.name }}" width="600" height="600">
           {% else %}

@@ -449,6 +449,7 @@ main.form-users {
   align-items: center;
   gap: 0.5rem;
   text-transform: initial;
+  color: whitesmoke;
 }
 
 .user-avatar {
@@ -463,6 +464,82 @@ main.form-users {
   font-size: 1rem;
   font-weight: 500;
 }
+
+/* === PÁGINA DE EXCLUSÃO === */
+main.cards-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+  padding: 2rem;
+}
+
+.exclusao {
+  background-color: #cbd5e1;
+  padding: 2.5rem;
+  border-radius: 15px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  width: min(90%, 500px);
+  display: flex;
+  flex-direction: column; /* ← organiza em coluna */
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem; /* espaçamento entre título, texto e botões */
+}
+
+.exclusao h2 {
+  color: #1e293b;
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.exclusao p {
+  color: #1e293b;
+  font-size: 1.1rem;
+}
+
+.exclusao form {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.exclusao button {
+  background-color: #f96262;
+  color: white;
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  font-weight: 600;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.exclusao button:hover {
+  background-color: #ff0000d4;
+  transform: translateY(-2px);
+}
+
+.exclusao a {
+  background-color: gray;
+  text-decoration: none;
+  color: white;
+  padding: 0.8rem 1.5rem;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.exclusao a:hover {
+  background-color: #b8b5b5d4;
+  transform: translateY(-2px);
+}
+
+
 
 
 /* MEDIA QUERIES */
@@ -564,4 +641,12 @@ main.form-users {
   .user-info span {
     display: none; /* Esconde em landscape também */
   }
+}
+
+div {
+  color: black;
+  padding: auto;
+  display: flex;
+  justify-content: center;
+
 }
