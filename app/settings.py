@@ -117,14 +117,7 @@ MEDIA_URL = '/media/'
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# Configuração Cloudinary
-CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': config('CLOUDINARY_CLOUD_NAME', default=''),
-    'API_KEY': config('CLOUDINARY_API_KEY', default=''),
-    'API_SECRET': config('CLOUDINARY_API_SECRET', default=''),
-}
-
-# Configuração explícita do Cloudinary
+# Configuração Cloudinary - ANTES de definir storages
 cloudinary.config(
     cloud_name=config('CLOUDINARY_CLOUD_NAME', default=''),
     api_key=config('CLOUDINARY_API_KEY', default=''),
@@ -132,23 +125,40 @@ cloudinary.config(
     secure=True
 )
 
-# Cloudinary para MEDIA files (fotos de usuários)
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': config('CLOUDINARY_CLOUD_NAME', default=''),
+    'API_KEY': config('CLOUDINARY_API_KEY', default=''),
+    'API_SECRET': config('CLOUDINARY_API_SECRET', default=''),
+}
+
+# Storages configuration (Django 4.2+)
+STORAGES = {
+    "default": {
+        "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
+
+# Fallback for older Django
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
-# DEBUG TEMPORÁRIO - REMOVER DEPOIS
+# DEBUG
 print("=" * 60)
 print("🔍 CLOUDINARY CONFIG:")
 print(f"CLOUD_NAME: {config('CLOUDINARY_CLOUD_NAME', default='NÃO DEFINIDO')}")
 print(f"API_KEY: {config('CLOUDINARY_API_KEY', default='NÃO DEFINIDO')}")
 print(f"API_SECRET: {'***DEFINIDO***' if config('CLOUDINARY_API_SECRET', default='') else 'NÃO DEFINIDO'}")
-print(f"DEFAULT_FILE_STORAGE: {DEFAULT_FILE_STORAGE}")
-print(f"STATICFILES_STORAGE: {STATICFILES_STORAGE}")
 print("=" * 60)
 
 try:
     from django.core.files.storage import default_storage
     print(f"🎯 Storage class: {default_storage.__class__.__name__}")
     print(f"🎯 Storage module: {default_storage.__class__.__module__}")
+    
+    # Teste adicional
+    print(f"🎯 Storage location: {getattr(default_storage, 'location', 'N/A')}")
 except Exception as e:
     print(f"❌ Erro ao verificar storage: {e}")
 print("=" * 60)
