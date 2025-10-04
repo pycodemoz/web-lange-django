@@ -8,6 +8,7 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+
 SECRET_KEY = config('SECRET_KEY', default='django-insecure-5h$+f@frmn_&v_6axh6ua&zbyifnvr9vi5169%9p&#vnxk^iz9')
 DEBUG = config('DEBUG', default=False, cast=bool)
 
@@ -103,8 +104,3 @@ cloudinary.config(
 # Storage customizado
 DEFAULT_FILE_STORAGE = 'app.cloudinary_backend.CloudinaryStorage'
 
-print("=" * 60)
-print("Cloudinary configurado!")
-print(f"Cloud: {cloudinary.config().cloud_name}")
-print(f"Storage: {DEFAULT_FILE_STORAGE}")
-print("=" * 60)

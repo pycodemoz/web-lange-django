@@ -11,23 +11,6 @@
  {% include '_header.html' %}
 
   <main class="cards-page">
-    <!-- DEBUG: REMOVER DEPOIS -->
-    <div style="background: yellow; padding: 10px; margin: 10px; color: black;">
-        <h3>🔍 DEBUG INFO:</h3>
-        <p>Total de parents: {{ parents|length }}</p>
-        {% if parents %}
-            {% for parent in parents %}
-                <p><strong>{{ parent.name }}:</strong> 
-                   Tem foto? {{ parent.photo|yesno:"✅ SIM,❌ NÃO,⚠️ VAZIO" }}
-                   {% if parent.photo %}
-                   | URL: {{ parent.photo.url }}
-                   {% endif %}
-                </p>
-            {% endfor %}
-        {% endif %}
-    </div>
-    <!-- FIM DEBUG -->
-
     {% for parent in parents %}
     <article id="profile{{ forloop.counter }}" class="card">
       <figure>
