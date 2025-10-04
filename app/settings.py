@@ -6,13 +6,8 @@ import dj_database_url
 from decouple import config
 from pathlib import Path
 
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config('SECRET_KEY', default='django-insecure-5h$+f@frmn_&v_6axh6ua&zbyifnvr9vi5169%9p&#vnxk^iz9')
@@ -26,21 +21,19 @@ ALLOWED_HOSTS = [
     '.onrender.com',
 ]
 
-
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
     
+    # Cloudinary ANTES do staticfiles
     'cloudinary_storage',
     'cloudinary',
     
-    
+    'django.contrib.staticfiles',
     
     'parents',
     'users',
@@ -77,10 +70,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'app.wsgi.application'
 
-
 # Database
-# https://docs.djangoproject.com/en/5.2/ref/settings/#databases
-
 DATABASES = {
     'default': dj_database_url.config(
         default='sqlite:///db.sqlite3',
@@ -88,10 +78,7 @@ DATABASES = {
     )
 }
 
-
 # Password validation
-# https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -107,24 +94,15 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
-# https://docs.djangoproject.com/en/5.2/topics/i18n/
-
 LANGUAGE_CODE = 'pt-br'
-
 TIME_ZONE = 'Africa/Maputo'
-
 USE_I18N = True
-
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.2/howto/static-files/
-
+# Static files (CSS, JavaScript, Images) - WhiteNoise gerencia
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # ← ADICIONADO!
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
@@ -133,39 +111,40 @@ STATICFILES_DIRS = [
 # WhiteNoise para servir arquivos estáticos em produção
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-
 # Media files
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
-# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
-
-
+# Configuração Cloudinary
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': config('CLOUDINARY_CLOUD_NAME', default=''),
     'API_KEY': config('CLOUDINARY_API_KEY', default=''),
     'API_SECRET': config('CLOUDINARY_API_SECRET', default=''),
 }
 
+# Configuração explícita do Cloudinary
+cloudinary.config(
+    cloud_name=config('CLOUDINARY_CLOUD_NAME', default=''),
+    api_key=config('CLOUDINARY_API_KEY', default=''),
+    api_secret=config('CLOUDINARY_API_SECRET', default=''),
+    secure=True
+)
 
+# Cloudinary para MEDIA files (fotos de usuários)
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 # DEBUG TEMPORÁRIO - REMOVER DEPOIS
 print("=" * 60)
 print("🔍 CLOUDINARY CONFIG:")
-print(f"CLOUD_NAME: {os.environ.get('CLOUDINARY_CLOUD_NAME', 'NÃO DEFINIDO')}")
-print(f"API_KEY: {os.environ.get('CLOUDINARY_API_KEY', 'NÃO DEFINIDO')}")
-print(f"API_SECRET: {'***' if os.environ.get('CLOUDINARY_API_SECRET') else 'NÃO DEFINIDO'}")
+print(f"CLOUD_NAME: {config('CLOUDINARY_CLOUD_NAME', default='NÃO DEFINIDO')}")
+print(f"API_KEY: {config('CLOUDINARY_API_KEY', default='NÃO DEFINIDO')}")
+print(f"API_SECRET: {'***DEFINIDO***' if config('CLOUDINARY_API_SECRET', default='') else 'NÃO DEFINIDO'}")
 print(f"DEFAULT_FILE_STORAGE: {DEFAULT_FILE_STORAGE}")
-print("CLOUDINARY_STORAGE:", CLOUDINARY_STORAGE)
+print(f"STATICFILES_STORAGE: {STATICFILES_STORAGE}")
 print("=" * 60)
 
-# No final do settings.py, depois do debug anterior
 try:
     from django.core.files.storage import default_storage
     print(f"🎯 Storage class: {default_storage.__class__.__name__}")
